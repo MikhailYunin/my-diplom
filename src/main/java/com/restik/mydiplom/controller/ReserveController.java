@@ -82,7 +82,7 @@ public class ReserveController {
                 reserve.setTables(tables);
                 reserve.setUser(user);
                 reserveRepository.save(reserve);
-                user.setReserve(reserve);
+//                user.setReserve(reserve);
                 userRepository.save(user);
 
                 return "user/add_reserve_success";
@@ -98,6 +98,8 @@ public class ReserveController {
         }
 
     }
+
+
 
 
 }

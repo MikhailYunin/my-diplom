@@ -30,10 +30,10 @@ public class Tables {
     @JoinColumn(name = "restaurantId")
     private Restaurant restaurant;
 
-    @OneToMany(mappedBy = "tables",
-            cascade = CascadeType.ALL, fetch = FetchType.LAZY,
-            orphanRemoval = true)
-    private List<Reserve> reserveList = new ArrayList<>();
+//    @OneToMany(mappedBy = "tables",
+//            cascade = CascadeType.ALL, fetch = FetchType.LAZY,
+//            orphanRemoval = true)
+//    private List<Reserve> reserveList = new ArrayList<>();
 
 
     public int getTableNum() {
@@ -64,10 +64,10 @@ public class Tables {
         this.visitorsVolume = visitorsVolume;
     }
 
-    public List<Reserve> getReserveList() {
-        return reserveList;
-    }
-    public void setReserveList(List<Reserve> reserveList) {
-        this.reserveList = reserveList;
-    }
+//    public List<Reserve> getReserveList() {
+//        return reserveList;
+//    }
+//    public void setReserveList(List<Reserve> reserveList) {
+//        this.reserveList = reserveList;
+//    }
 }

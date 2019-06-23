@@ -24,7 +24,7 @@ public class LoginController {
 
     @RequestMapping(value="/", method = RequestMethod.GET)
     public ModelAndView index(Principal principal){
-        System.out.println(principal.getName());
+        System.out.println("\n \n  вошел в метод гет главной страницы  "+principal.getName()+"\n\n");
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("index");
         return modelAndView;

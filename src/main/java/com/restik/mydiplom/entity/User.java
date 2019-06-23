@@ -31,7 +31,7 @@ public class User {
     private String email;
 
     @Column(name = "password")
-    @Length(min = 5, message = "*Your password must have at least 5 characters")
+    @Length(min = 5, message = "*Your  password must have at least 5 characters")
     @NotEmpty(message = "*Please provide your password")
     private String password;
 
@@ -54,8 +54,8 @@ public class User {
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
-    @OneToOne(cascade = CascadeType.ALL)
-    private Reserve reserve;
+//    @OneToOne(cascade = CascadeType.ALL)
+//    private Reserve reserve;
 
     public int getId() {
         return id;
@@ -106,12 +106,12 @@ public class User {
         this.roles = roles;
     }
 
-    public Reserve getReserve() {
-        return reserve;
-    }
-    public void setReserve(Reserve reserve) {
-        this.reserve = reserve;
-    }
+//    public Reserve getReserve() {
+//        return reserve;
+//    }
+//    public void setReserve(Reserve reserve) {
+//        this.reserve = reserve;
+//    }
 
     public String getPhone() {
         return phone;

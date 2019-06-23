@@ -22,9 +22,6 @@ public class Role {
     @Column(name = "role")
     private String role;
 
-//    @OneToMany
-//    List<User> userList;
-
 
     public int getId() {
         return id;
