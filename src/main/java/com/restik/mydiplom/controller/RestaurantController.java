@@ -3,7 +3,6 @@ package com.restik.mydiplom.controller;
 import com.restik.mydiplom.entity.Restaurant;
 import com.restik.mydiplom.entity.Tables;
 import com.restik.mydiplom.repositories.RestaurantRepository;
-import com.restik.mydiplom.repositories.TableRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,13 +14,12 @@ import java.util.Arrays;
 public class RestaurantController {
     @Autowired
     private RestaurantRepository restaurantRepository;
-    @Autowired
-    private TableRepository tableRepository;
+
 
     @RequestMapping(value = "/restaurant/add", method = RequestMethod.GET)
     public String showForm (Model model){
         model.addAttribute("restaurant", new Restaurant());
-        return "AddRestaurant";
+        return "admin/AddRestaurant";
     }
 
     @RequestMapping(value = "/restaurant/add", method = RequestMethod.POST)
@@ -37,7 +35,7 @@ public class RestaurantController {
         restaurantRepository.save(restaurant);
         model.addAttribute("addInfo", restaurant.getRestaurantName());
 
-        return "AddRestaurant";
+        return "admin/AddRestaurant";
     }
 
 }

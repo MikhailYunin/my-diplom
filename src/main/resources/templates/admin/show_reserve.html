@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/" xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Просмостр резерва столов</title>
+</head>
+<body>
+
+<form method="GET" th:action="@{/restaurant/showReserve}" th:object="${reserve}">
+
+    <table border="2">
+        <tr>
+            <td>ID</td>
+            <td>Время резерва</td>
+            <td>столикID</td>
+        </tr>
+        <c:forEach items="${reserve}" var="reserve">
+            <tr>
+                <td>${reserve.id}</td>
+                <td>
+                    <c:out value="${reserve.id}"/>
+                </td>
+                <td>
+                    <c:out value="${reserve.reserveStart}"/>
+                </td>
+                <td>
+                    <c:out value="${reserve.tableId}"/>
+                </td>
+            </tr>
+        </c:forEach>
+
+
+    </table>
+
+</form>
+</body>
+</html>

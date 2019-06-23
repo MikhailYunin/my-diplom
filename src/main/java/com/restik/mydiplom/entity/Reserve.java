@@ -21,29 +21,18 @@ public class Reserve {
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime reserveStart;
 
+
     @ManyToOne
     @JoinColumn(name = "tableId")
     private Tables tables;
 
     @OneToOne(mappedBy =  "reserve")
-    private Visitors visitor;
+    private User user;
 
-//    @OneToOne
-//    @JoinColumn(nullable = false)
-//    private Restaurant restaurant;
-//
-//    public Restaurant getRestaurant() {
-//        return restaurant;
-//    }
-//
-//    public void setRestaurant(Restaurant restaurant) {
-//        this.restaurant = restaurant;
-//    }
 
     public int getId() {
         return id;
     }
-
     public void setId(int id) {
         this.id = id;
     }
@@ -51,23 +40,20 @@ public class Reserve {
     public LocalDateTime getReserveStart() {
         return reserveStart;
     }
-
     public void setReserveStart(LocalDateTime reserveStart) {
         this.reserveStart = reserveStart;
     }
 
-    public Visitors getVisitor() {
-        return visitor;
+    public User getUser() {
+        return user;
     }
-
-    public void setVisitor(Visitors visitor) {
-        this.visitor = visitor;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Tables getTables() {
         return tables;
     }
-
     public void setTables(Tables tables) {
         this.tables = tables;
     }

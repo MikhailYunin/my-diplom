@@ -22,7 +22,6 @@ public class Tables {
     @GenericGenerator(name = "increment", strategy = "increment")
     private int tableId;
 
-
     private int visitorsVolume;
 
     @ManyToOne
@@ -35,10 +34,11 @@ public class Tables {
             orphanRemoval = true)
     private List<Reserve> reserveList = new ArrayList<>();
 
+
+
     public Restaurant getRestaurant() {
         return restaurant;
     }
-
     public void setRestaurant(Restaurant restaurant) {
         this.restaurant = restaurant;
     }
@@ -46,16 +46,13 @@ public class Tables {
     public int getTableId() {
         return tableId;
     }
-
     public void setTableId(int tableId) {
         this.tableId = tableId;
     }
 
-
     public int getVisitorsVolume() {
         return visitorsVolume;
     }
-
     public void setVisitorsVolume(int visitorsVolume) {
         this.visitorsVolume = visitorsVolume;
     }
@@ -63,10 +60,7 @@ public class Tables {
     public List<Reserve> getReserveList() {
         return reserveList;
     }
-
     public void setReserveList(List<Reserve> reserveList) {
         this.reserveList = reserveList;
     }
-
-
 }

@@ -31,15 +31,10 @@ public class Restaurant {
     //@OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")
     private List<Tables> tablesList = new ArrayList<>();
 
-//    @OneToMany(mappedBy = "restaurant",
-//    cascade = CascadeType.ALL, fetch = FetchType.LAZY,
-//    orphanRemoval = true)
-//    private List<Reserve> reserveList = new ArrayList<>();
 
     public int getTablesQty() {
         return tablesQty;
     }
-
     public void setTablesQty(int tablesQty) {
         this.tablesQty = tablesQty;
     }
@@ -47,7 +42,6 @@ public class Restaurant {
     public int getRestaurantId() {
         return restaurantId;
     }
-
     public void setRestaurantId(int restaurantId) {
         this.restaurantId = restaurantId;
     }
@@ -55,7 +49,6 @@ public class Restaurant {
     public String getRestaurantName() {
         return restaurantName;
     }
-
     public void setRestaurantName(String restaurantName) {
         this.restaurantName = restaurantName;
     }
@@ -63,7 +56,6 @@ public class Restaurant {
     public String getAdress() {
         return adress;
     }
-
     public void setAdress(String adress) {
         this.adress = adress;
     }
@@ -71,7 +63,6 @@ public class Restaurant {
     public String getPhoneNumber() {
         return phoneNumber;
     }
-
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
@@ -79,11 +70,7 @@ public class Restaurant {
     public List<Tables> getTablesList() {
         return tablesList;
     }
-
     public void setTablesList(List<Tables> tablesList) {
         this.tablesList = tablesList;
     }
-
-
-
 }

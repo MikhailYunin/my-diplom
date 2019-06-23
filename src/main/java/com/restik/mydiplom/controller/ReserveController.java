@@ -1,15 +1,11 @@
 package com.restik.mydiplom.controller;
 
 import com.restik.mydiplom.entity.Reserve;
-import com.restik.mydiplom.entity.Restaurant;
 import com.restik.mydiplom.entity.Tables;
-import com.restik.mydiplom.entity.Visitors;
 import com.restik.mydiplom.repositories.ReserveRepository;
 import com.restik.mydiplom.repositories.RestaurantRepository;
 import com.restik.mydiplom.repositories.TableRepository;
-import com.restik.mydiplom.repositories.VisitorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -18,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Controller
 public class ReserveController {
@@ -26,12 +23,10 @@ public class ReserveController {
     @Autowired
     RestaurantRepository restaurantRepository;
     @Autowired
-    VisitorRepository visitorRepository;
-    @Autowired
     TableRepository tableRepository;
+
     private LocalDateTime dateReserveDeltaMinus;
     private LocalDateTime dateReserveDeltaPlus;
-
     private int visitorsVolume;
     private LocalDateTime dateReserve;
 
@@ -43,38 +38,54 @@ public class ReserveController {
         //  model.addAttribute("tables", tableRepository.findAll());
         model.addAttribute("reserve", new Reserve());
 
-        return "add_reserve";
+        return "user/add_reserve";
     }
 
     @RequestMapping(value = "/reserve/add", method = RequestMethod.POST)
     public String submitForm(@ModelAttribute Reserve reserve, Model model,
-                             //@RequestParam(name = "restaurantId") int restaurantId,
+                             @RequestParam(name = "restaurant") int restaurantId,
                              @RequestParam(name = "visitorsVolume") int visitorsVolume,
-                             @RequestParam(name = "reserveStart") LocalDateTime reserveStart
+                             @RequestParam(name = "reserveStart") String reserveStart
 
 
     ) {
-        dateReserveDeltaMinus = reserveStart.minusHours(2);
-        dateReserveDeltaPlus = reserveStart.plusHours(2);
 
-        int restaurantId = 2;
+        System.out.println("restId " + restaurantId);
+        System.out.println("visitorsVolume " + visitorsVolume);
+        System.out.println("reserveStart " + reserveStart);
 
-//        Restaurant restaurant = restaurantRepository.findById(Integer.valueOf(restaurantId)).get();
-//        Reserve reserveNew = reserveRepository.findFreeTable(Integer.valueOf(restaurantId), Integer.valueOf(visitorsVolume),dateReserveDeltaMinus, dateReserveDeltaPlus).get();
-//        Tables tables = tableRepository.findFreeTable(Integer.valueOf(restaurantId)).get();
-        Tables tables = tableRepository.findFreeTable(Integer.valueOf(restaurantId), Integer.valueOf(visitorsVolume)).get();
+        LocalDateTime localDateTime = LocalDateTime.parse(reserveStart, DateTimeFormatter.ISO_DATE_TIME);
+        System.out.println("ISO Date Time is "+localDateTime);
 
-//        Visitors visitor1 = new Visitors();
-//        visitor1.setVisitorName(visitorName);
-        reserve.setTables(tables);
-//        visitor1.setReserve(reserve);
-        reserve.setReserveStart(dateReserve);
+        dateReserveDeltaMinus = localDateTime.minusHours(2);
+        dateReserveDeltaPlus = localDateTime.plusHours(2);
 
-//        visitorRepository.save(visitor1);
-        reserveRepository.save(reserve);
 
-        return "add_reserve";
+        try {
+            Tables tables = tableRepository.findFreeTable(restaurantId, visitorsVolume, dateReserveDeltaMinus, dateReserveDeltaPlus).get();
+            if (tables != null) {
+
+                System.out.println("\n РЕзерв не нул \n");
+
+                System.out.println("Table id: " + tableRepository.findFreeTable(restaurantId, visitorsVolume, dateReserveDeltaMinus, dateReserveDeltaPlus).toString());
+                reserve.setTables(tables);
+                reserveRepository.save(reserve);
+
+                return "user/add_reserve_success";
+            } else {
+                System.out.println("\n РЕзерв нул \n");
+                return "user/add_reserve_failed";
+
+            }
+        }catch (Exception NoSuchElementException) {
+                System.out.println("\n Не Взлетело Exception: " + NoSuchElementException.getMessage());
+
+                return "user/add_reserve_failed";
+        }
+
     }
+
+
 }
 
 

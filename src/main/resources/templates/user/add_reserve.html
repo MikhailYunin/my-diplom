@@ -26,9 +26,9 @@
         </select>
     </div>
 
-    <label>Количество гостей <input th:field="*{Tables.visitorsVolume}" type="text"></label></br>
+    <label>Количество гостей <input th:name="visitorsVolume"  type="text"></label></br>
 
-    <div> <p>Ввод даты и времени: <input th:field="*{reserveStart}" type="datetime-local" visitorName="calendar">
+    <div> <p>Ввод даты и времени: <input th:name="reserveStart"  type="datetime-local" >
 
     <hr>
     <p><input type="submit" value="Проверить бронь"></p>
