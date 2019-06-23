@@ -1,62 +1,91 @@
 package com.restik.mydiplom.controller;
 
-import com.restik.mydiplom.dao.PersonDAO;
-import com.restik.mydiplom.entity.Person;
-import com.restik.mydiplom.exception.ProjException;
+
+import com.restik.mydiplom.entity.User;
+import com.restik.mydiplom.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 @Controller
-@RequestMapping("/login.htm")
 public class LoginController {
-    //	@Autowired
-//	@Qualifier("userValidator")
-//	UserValidator validator;
-//
-//	@InitBinder
-//	private void initBinder(WebDataBinder binder) {
-//		binder.setValidator(validator);
-//	}
-    @RequestMapping(method = RequestMethod.GET)
-    public String initializeForm(@ModelAttribute("logPerson") Person person) {
-        return "test";
-//        return "userHome";
+
+    @Autowired
+    private UserService userService;
+
+    @RequestMapping(value={"/", "/login"}, method = RequestMethod.GET)
+    public ModelAndView login(){
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("login");
+        return modelAndView;
     }
 
-    @RequestMapping(method = RequestMethod.POST)
-    protected String doSubmitAction(@ModelAttribute("logPerson") Person person, HttpServletRequest request) throws Exception {
-//		validator.validate(user, result);
-//		if (result.hasErrors()) {
-//			return "addUserForm";
-//		}
-
-        try {
-            System.out.print("test");
-            PersonDAO personDAO = new PersonDAO();
-            System.out.print("test1");
-
-            HttpSession session = request.getSession();
-            Person loggedPerson = personDAO.get(person.getUsername(), person.getPassword());
-            session.setAttribute("person", loggedPerson);
-
-            if (loggedPerson != null) {
-                if (loggedPerson.getRoleType().equals("user")) {
-                    return "userHome";
-                } else {
-                    return "restAdminHome";
-                }
-            } else {
-                System.out.println("Username does not exist");
-                return "home";
-            }
-        } catch (ProjException e) {
-            System.out.println("Exception: " + e.getMessage());
+    @RequestMapping(value={"/login"}, method = RequestMethod.POST)
+    public ModelAndView loginPost(@RequestParam(name = "email") String email){
+        ModelAndView modelAndView = new ModelAndView();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findUserByEmail(auth.getName());
+        User logUser = userService.findUserByEmail(email);
+        int userRole = logUser.getRole().getId();
+        if (userRole == 1)
+        {
+            modelAndView.setViewName("user/add_reserve");
+        } else{
+            modelAndView.setViewName("admin/AddRestaurant");
         }
-        return "home";
+
+        return modelAndView;
     }
+
+
+    @RequestMapping(value="/registration", method = RequestMethod.GET)
+    public ModelAndView registration(){
+        ModelAndView modelAndView = new ModelAndView();
+        User user = new User();
+        modelAndView.addObject("user", user);
+        modelAndView.setViewName("registration");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/registration", method = RequestMethod.POST)
+    public ModelAndView createNewUser(@Valid User user, BindingResult bindingResult) {
+        ModelAndView modelAndView = new ModelAndView();
+        User userExists = userService.findUserByEmail(user.getEmail());
+        if (userExists != null) {
+            bindingResult
+                    .rejectValue("email", "error.user",
+                            "There is already a user registered with the email provided");
+        }
+        if (bindingResult.hasErrors()) {
+            modelAndView.setViewName("registration");
+        } else {
+            userService.saveUser(user);
+            modelAndView.addObject("successMessage", "User has been registered successfully");
+            modelAndView.addObject("user", new User());
+            modelAndView.setViewName("registration");
+
+        }
+        return modelAndView;
+    }
+
+    @RequestMapping(value="/admin/home", method = RequestMethod.GET)
+    public ModelAndView home(){
+        ModelAndView modelAndView = new ModelAndView();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findUserByEmail(auth.getName());
+        modelAndView.addObject("userName", "Welcome " + user.getName() + " " + user.getLastName() + " (" + user.getEmail() + ")");
+        modelAndView.addObject("adminMessage","Content Available Only for Users with Admin Role");
+        modelAndView.setViewName("admin/home");
+        return modelAndView;
+    }
+
+
 }

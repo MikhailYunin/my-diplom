@@ -1,4 +1,3 @@
-/*
 package com.restik.mydiplom.repositories;
 
 import com.restik.mydiplom.entity.Tables;
@@ -17,4 +16,3 @@ public interface TableRepository extends CrudRepository<Tables, Integer> {
                                     LocalDateTime dateReserveDeltaMinus, LocalDateTime dateReserveDeltaPlus);
 
 }
-*/

@@ -1,4 +1,3 @@
-/*
 package com.restik.mydiplom.repositories;
 
 import com.restik.mydiplom.entity.Reserve;
@@ -9,8 +8,7 @@ import java.util.Collection;
 
 public interface ReserveRepository extends CrudRepository<Reserve, Integer> {
     @Query(value = "select * from reserve where table_id in " +
-            "(select table_id from tables where restaurant_id = 2)", nativeQuery = true)
+            "(select table_id from tables where restaurant_id = :restaurantId)", nativeQuery = true)
     Collection<Reserve> findByRestaurant(Integer restaurantId);
 
 }
-*/

@@ -1,70 +1,17 @@
 package com.restik.mydiplom.entity;
 
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name="restaurant_tbl")
-public class Restaurant {
-
-    @Id
-    @GeneratedValue
-    @Column(name="restID")
-    private int restID;
-
-    @Column(name="restName")
-    private String restName;
-
-    @Column(name="tablesQty")
-    private int tablesQty;
-
-    @OneToOne(fetch=FetchType.EAGER)
-    @JoinColumn(name="restAdminID")
-    private AdminOfRestaurant restAdmin;
-
-    @OneToMany(fetch=FetchType.EAGER, mappedBy="restaurant",cascade=CascadeType.ALL)
-    List<TableOfRestaurant> restTable = new ArrayList<TableOfRestaurant>();
-
-
-    public Restaurant(){
-    }
-
-    public List<TableOfRestaurant> getRestTable() {
-        return restTable;
-    }
-    public void setRestTable(List<TableOfRestaurant> restTable) {
-        this.restTable = restTable;
-    }
-
-    public AdminOfRestaurant getRestAdmin() {
-        return restAdmin;
-    }
-    public void setRestAdmin(AdminOfRestaurant restAdmin) {
-        this.restAdmin = restAdmin;
-    }
-
-    public int getRestID() {
-        return restID;
-    }
-    public void setRestID(int restID) {
-        this.restID = restID;
-    }
-
-    public String getRestName() {
-        return restName;
-    }
-    public void setRestName(String restName) {
-        this.restName = restName;
-    }
-}
-
-
-
-
-
-/*
 @Table
 public class Restaurant {
 
@@ -127,4 +74,3 @@ public class Restaurant {
         this.tablesList = tablesList;
     }
 }
-*/
