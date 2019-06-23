@@ -9,6 +9,8 @@ import org.hibernate.validator.constraints.Length;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @Builder
@@ -41,12 +43,16 @@ public class User {
     @NotEmpty(message = "*Please provide your last name")
     private String lastName;
 
+    @Column(name = "phone")
+    @NotEmpty(message = "*Please provide your phone number")
+    private String phone;
+
     @Column(name = "active")
     private int active;
 
-    @OneToOne(cascade = CascadeType.ALL)
-//    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Role role;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles = new HashSet<>();
 
     @OneToOne(cascade = CascadeType.ALL)
     private Reserve reserve;
@@ -93,12 +99,24 @@ public class User {
         this.active = active;
     }
 
-    public Role getRole() {
-        return role;
+    public Set<Role> getRoles() {
+        return roles;
     }
-    public void setRoles(Role roles) {
-        this.role = roles;
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 
+    public Reserve getReserve() {
+        return reserve;
+    }
+    public void setReserve(Reserve reserve) {
+        this.reserve = reserve;
+    }
 
+    public String getPhone() {
+        return phone;
+    }
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 }

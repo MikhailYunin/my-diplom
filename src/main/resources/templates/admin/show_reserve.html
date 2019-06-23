@@ -7,32 +7,36 @@
 </head>
 <body>
 
-<form method="GET" th:action="@{/restaurant/showReserve}" th:object="${reserve}">
+<form method="POST" th:action="@{/restaurant/showReserve}" th:object="${reserve}">
+    <label>Выбор ресторана для статискики</label>
+    <select name="restaurant">
+        <option th:each="restaurant : ${restaurant}"
+                th:value="${restaurant.restaurantId}"
+                th:utext="${restaurant.restaurantName}">
+        </option>
+    </select>
 
-    <table border="2">
-        <tr>
-            <td>ID</td>
-            <td>Время резерва</td>
-            <td>столикID</td>
-        </tr>
-        <c:forEach items="${reserve}" var="reserve">
-            <tr>
-                <td>${reserve.id}</td>
-                <td>
-                    <c:out value="${reserve.id}"/>
-                </td>
-                <td>
-                    <c:out value="${reserve.reserveStart}"/>
-                </td>
-                <td>
-                    <c:out value="${reserve.tableId}"/>
-                </td>
-            </tr>
-        </c:forEach>
-
-
-    </table>
-
+    <p><input type="submit" value="Получить"></p>
 </form>
+
+
+
+<table th:if="${reserve}" border="2">
+    <tr>
+        <th>ID</th>
+        <th>Время резерва</th>
+        <th>Номер столика</th>
+        <th>Имя пользователя</th>
+    </tr>
+
+    <th:block th:each="item : ${reserve}">
+        <tr>
+            <td th:text="${item.id}"></td>
+            <td th:text="${item.reserveStart}"></td>
+            <td th:text="${item.tables.tableNum}"></td>
+            <td th:text="${item.user.name}"></td>
+        </tr>
+    </th:block>
+</table>
 </body>
 </html>

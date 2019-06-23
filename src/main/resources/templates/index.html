@@ -5,21 +5,22 @@
     <title>Резерв столов. Главная</title>
 </head>
 <body>
-
+<p>Добро пожаловать: <span sec:authentication="name"></span></p>
+<p>Вы вошли как: <span sec:authentication="principal.authorities"></span></p>
 <nav>
     <ul>
 
-        <li><a href="/user/login">Вход пользователя</a></li>
-        <li><a href="/user/add">Регистрация пользователя</a></li>
-        <li><a href="/restaurant/login">Вход администратора ресторана</a></li>
+        <!--<li><a href="/user/login">Вход пользователя</a></li>-->
+        <!--<li><a href="/user/add">Регистрация пользователя</a></li>-->
+        <!--<li><a href="/restaurant/login">Вход администратора ресторана</a></li>-->
+        <li><a href="/logout">Выход</a></li>
 
 
-        <li><a href="/restaurant/add">Регистрация ресторана</a></li>
-        <li><a href="/restaurant/showReserve">Просмотр забронированных столов</a></li>
+        <li  sec:authorize="hasAuthority('ADMIN')"><a href="/restaurant/add">Регистрация ресторана</a></li>
+        <li  sec:authorize="hasAuthority('ADMIN')"><a href="/restaurant/showReserve">Просмотр забронированных столов</a></li>
 
 
-        <li><a href="/reserve/add">Резервация стола</a></li>
-        <!--<li></li>-->
+        <li  sec:authorize="hasAuthority('USER')"><a href="/reserve/add">Резервация стола</a></li>
     </ul>
 </nav>
 

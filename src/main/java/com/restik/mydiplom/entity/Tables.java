@@ -22,6 +22,7 @@ public class Tables {
     @GenericGenerator(name = "increment", strategy = "increment")
     private int tableId;
 
+    private int tableNum;
     private int visitorsVolume;
 
     @ManyToOne
@@ -35,6 +36,12 @@ public class Tables {
     private List<Reserve> reserveList = new ArrayList<>();
 
 
+    public int getTableNum() {
+        return tableNum;
+    }
+    public void setTableNum(int tableNum) {
+        this.tableNum = tableNum;
+    }
 
     public Restaurant getRestaurant() {
         return restaurant;

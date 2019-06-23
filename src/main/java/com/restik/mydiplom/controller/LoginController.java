@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.security.Principal;
 
 @Controller
 public class LoginController {
@@ -21,7 +22,15 @@ public class LoginController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value={"/", "/login"}, method = RequestMethod.GET)
+    @RequestMapping(value="/", method = RequestMethod.GET)
+    public ModelAndView index(Principal principal){
+        System.out.println(principal.getName());
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("index");
+        return modelAndView;
+    }
+
+    @RequestMapping(value={"/login"}, method = RequestMethod.GET)
     public ModelAndView login(){
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("login");
@@ -34,13 +43,14 @@ public class LoginController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByEmail(auth.getName());
         User logUser = userService.findUserByEmail(email);
-        int userRole = logUser.getRole().getId();
-        if (userRole == 1)
-        {
-            modelAndView.setViewName("user/add_reserve");
-        } else{
-            modelAndView.setViewName("admin/AddRestaurant");
-        }
+        System.out.println(logUser.getEmail());
+//        int userRole = logUser.getRole().getId();
+//        if (userRole == 1)
+//        {
+//            modelAndView.setViewName("user/add_reserve");
+//        } else{
+//            modelAndView.setViewName("admin/AddRestaurant");
+//        }
 
         return modelAndView;
     }
@@ -56,9 +66,10 @@ public class LoginController {
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public ModelAndView createNewUser(@Valid User user, BindingResult bindingResult) {
+    public ModelAndView createNewUser(@Valid User user, BindingResult bindingResult, @RequestParam(name = "role") String role) {
         ModelAndView modelAndView = new ModelAndView();
         User userExists = userService.findUserByEmail(user.getEmail());
+        System.out.println("gggggggg: " + role);
         if (userExists != null) {
             bindingResult
                     .rejectValue("email", "error.user",
@@ -67,7 +78,7 @@ public class LoginController {
         if (bindingResult.hasErrors()) {
             modelAndView.setViewName("registration");
         } else {
-            userService.saveUser(user);
+            userService.saveUser(user, role);
             modelAndView.addObject("successMessage", "User has been registered successfully");
             modelAndView.addObject("user", new User());
             modelAndView.setViewName("registration");

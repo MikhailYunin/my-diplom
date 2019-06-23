@@ -37,6 +37,16 @@
                                placeholder="Last Name" class="form-control"/>
                     </div>
                 </div>
+
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        <label th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"
+                               class="validation-message"></label>
+                        <input type="text" th:field="*{phone}"
+                               placeholder="Phone Number" class="form-control"/>
+                    </div>
+                </div>
+
                 <div class="form-group">
                     <div class="col-sm-9">
                         <input type="text" th:field="*{email}" placeholder="Email"
@@ -55,8 +65,8 @@
                 </div>
 
 
-                <input type="radio" name="role" th:field="*{role}" value="1" required/>I am a Admin<br>
-                <input type="radio" name="role" th:field="*{role}" value="2" required/>I am a User<br>
+                <input type="radio" th:name="role"  value="ADMIN" required/>I am a Admin<br>
+                <input type="radio" th:name="role"  value="USER" required/>I am a User<br>
 
                 <div class="form-group">
                     <div class="col-sm-9">

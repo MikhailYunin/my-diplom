@@ -11,6 +11,11 @@ import org.springframework.stereotype.Service;
 
 
 
+
+import java.util.Arrays;
+import java.util.HashSet;
+
+
 @Service("userService")
 public class UserService {
 
@@ -31,11 +36,14 @@ public class UserService {
         return userRepository.findByEmail(email);
     }
 
-    public User saveUser(User user) {
+    public User saveUser(User user, String role) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         user.setActive(1);
-//        Role userRole = roleRepository.findByRole("ADMIN");
-//        user.setRoles(userRole);
+        Role userRole = roleRepository.findByRole(role);
+        System.out.println(userRole.getRole());
+        System.out.println(userRole);
+        user.getRoles().add(userRole);
+
         return userRepository.save(user);
     }
 

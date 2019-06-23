@@ -20,6 +20,10 @@ public class Restaurant {
     @GenericGenerator(name = "increment", strategy = "increment")
     private int restaurantId;
 
+    @OneToOne
+    @JoinColumn(name = "userId")
+    private User adminOfRest;
+
     private String restaurantName;
     private String adress;
     private String phoneNumber;
@@ -31,6 +35,13 @@ public class Restaurant {
     //@OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")
     private List<Tables> tablesList = new ArrayList<>();
 
+
+    public User getAdminOfRest() {
+        return adminOfRest;
+    }
+    public void setAdminOfRest(User adminOfRest) {
+        this.adminOfRest = adminOfRest;
+    }
 
     public int getTablesQty() {
         return tablesQty;

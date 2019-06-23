@@ -26,8 +26,10 @@ public class Reserve {
     @JoinColumn(name = "tableId")
     private Tables tables;
 
-    @OneToOne(mappedBy =  "reserve")
+    @OneToOne
+    @JoinColumn(name = "userId")
     private User user;
+
 
 
     public int getId() {
