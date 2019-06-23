@@ -1,3 +1,4 @@
+/*
 package com.restik.mydiplom.repositories;
 
 import com.restik.mydiplom.entity.Reserve;
@@ -12,3 +13,4 @@ public interface ReserveRepository extends CrudRepository<Reserve, Integer> {
     Collection<Reserve> findByRestaurant(Integer restaurantId);
 
 }
+*/

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Регистрация пользователя</title>
+</head>
+<body>
+
+<div>
+    <form method="post" th:action="@{/registerUser}"  th:object="${regUser}">
+        <!--                <form method="post" th:action="@{/registerUser}" th:object="${restaurant}">-->
+        <!--                <form:form action="/registerUser" commandName="regUser" method="post">-->
+
+        Please Enter your First Name:
+        <input name="firstName" size="30" required /><br><br>
+
+        Please Enter your Last Name:
+        <input type="text" name="lastName" required/><br><br>
+
+        Please Enter your User Name:
+        <input type="text" name="username" required/><br><br>
+
+        Please Enter your Password :
+        <input type="password" name="password" required/><br><br>
+
+        Please Confirm that you are a User : <br>
+
+
+        <input type="radio" name="roleType" value="user" required/>Yes, I am a user<br>
+
+
+        <input type="submit" value="Регистрация">
+<!--       <p><input type="submit" value="Добавить ресторан"></p>-->
+
+    </form>
+</div>
+
+
+</body>
+</html>
