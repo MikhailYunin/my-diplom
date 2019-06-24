@@ -1,44 +1,122 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org/" xmlns:c="http://java.sun.com/jsp/jstl/core">
-
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Просмостр резерва столов</title>
+    <title>Бронирование столика</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+
+    <!-- Fonts -->
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800"
+          rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Josefin+Slab:100,300,400,600,700,100italic,300italic,400italic,600italic,700italic"
+          rel="stylesheet" type="text/css">
 </head>
 <body>
 
-<form method="POST" th:action="@{/restaurant/showReserve}" th:object="${reserve}">
-    <label>Выбор ресторана для статискики</label>
-    <select name="restaurant">
-        <option th:each="restaurant : ${restaurant}"
-                th:value="${restaurant.restaurantId}"
-                th:utext="${restaurant.restaurantName}">
-        </option>
-    </select>
 
-    <p><input type="submit" value="Получить"></p>
-</form>
+<div class="jumbotron">
+    <h1 class="display-4">Просмотр резерва столов</h1>
+    <p class="lead">Для отобрадения списка резервов, выбирите ресторан из списка Ваших ресторанов</p>
+    <hr class="my-4">
 
 
 
-<table th:if="${reserve}" border="2">
-    <tr>
-        <th>ID</th>
-        <th>Время резерва</th>
-        <th>Номер столика</th>
-        <th>Имя пользователя</th>
-    </tr>
+    <form method="POST" th:action="@{/restaurant/showReserve}" th:object="${reserve}">
 
-    <th:block th:each="item : ${reserve}">
+
+        <div class="form-group">
+            <label for="restaurant">Выбор ресторана</label>
+            <select name="restaurant" class="form-control" id="restaurant">
+                <option selected>Ресторан...</option>
+                <option th:each="restaurant : ${restaurant}"
+                        th:value="${restaurant.restaurantId}"
+                        th:utext="${restaurant.restaurantName}">
+                </option>
+            </select>
+        </div>
+
+        <p><input type="submit" value="Просмотр резерва"></p>
+    </form>
+
+
+    <table class="table" th:if="${reserve}" border="2">
+        <thead class="thead-dark">
         <tr>
-            <td th:text="${item.id}"></td>
-            <td th:text="${item.reserveStart}"></td>
-            <td th:text="${item.tables.tableNum}"></td>
-            <td th:text="${item.user.name}"></td>
+            <th scope="col">ID</th>
+            <th scope="col">Время резерва</th>
+            <th scope="col">Номер столика</th>
+            <th scope="col">Имя гостя</th>
+            <th scope="col">Фамилия гостя</th>
+            <th scope="col">Номер телефона</th>
         </tr>
-    </th:block>
+        </thead>
+        <tbody>
+
+        <th:block th:each="item : ${reserve}">
+            <tr>
+                <td th:text="${item.id}"></td>
+                <td th:text="${item.reserveStart}"></td>
+                <td th:text="${item.tables.tableNum}"></td>
+                <td th:text="${item.user.name}"></td>
+                <td th:text="${item.user.lastName}"></td>
+                <td th:text="${item.user.phone}"></td>
+            </tr>
+        </th:block>
+
+        </tbody >
+    </table>
+
+</div>
+
+
+
+
+<!--//-->
+<!--<form method="POST" th:action="@{/restaurant/showReserve}" th:object="${reserve}">-->
+<!--    <label>Выбор ресторана для статискики</label>-->
+<!--    <select name="restaurant">-->
+<!--        <option th:each="restaurant : ${restaurant}"-->
+<!--                th:value="${restaurant.restaurantId}"-->
+<!--                th:utext="${restaurant.restaurantName}">-->
+<!--        </option>-->
+<!--    </select>-->
+
+<!--    <p><input type="submit" value="Получить"></p>-->
+<!--</form>-->
+
+<!--<table th:if="${reserve}" border="2">-->
+<!--    <tr>-->
+<!--        <th>ID</th>-->
+<!--        <th>Время резерва</th>-->
+<!--        <th>Номер столика</th>-->
+<!--        <th>Имя пользователя</th>-->
+<!--    </tr>-->
+
+<!--    <th:block th:each="item : ${reserve}">-->
+<!--        <tr>-->
+<!--            <td th:text="${item.id}"></td>-->
+<!--            <td th:text="${item.reserveStart}"></td>-->
+<!--            <td th:text="${item.tables.tableNum}"></td>-->
+<!--            <td th:text="${item.user.name}"></td>-->
+<!--        </tr>-->
+<!--    </th:block>-->
+
+<!--    <p><a href="/">На главную</a></p>-->
+<!--    //-->
+
 
     <p><a href="/">На главную</a></p>
-</table>
 </body>
 </html>

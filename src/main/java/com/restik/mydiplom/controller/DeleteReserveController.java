@@ -39,7 +39,7 @@ public class DeleteReserveController {
         @RequestMapping(value = "/restaurant/deleteReserve", method = RequestMethod.POST)
         public String deleteReserve(@ModelAttribute Reserve reserve, Model model) {
             String reserveID= reserve.getUser().getName();
-            System.out.println("\n Перед запросом удаления ресторана "+ reserveID);
+            System.out.println("\n Перед запросом удаления резерва пользователя  "+ reserveID);
 
 
             reserveRepository.deleteReserveById(reserve.getId());
