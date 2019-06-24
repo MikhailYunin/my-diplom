@@ -2,24 +2,57 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Просмостр резерва столов</title>
+    <title>Отмена резерва</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+
+    <!-- Fonts -->
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800"
+          rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Josefin+Slab:100,300,400,600,700,100italic,300italic,400italic,600italic,700italic"
+          rel="stylesheet" type="text/css">
 </head>
 <body>
 
-<form method="POST" th:action="@{/restaurant/deleteReserve}" th:object="${reserve}">
-    <label>Выбор резерва для удаления</label>
-    <select name="reserve">
-        <option th:each="item : ${reserve}"
-                th:value="${item.id}"
-                th:utext="${item.user.name}">
-        </option>
-    </select>
 
-    <p><input type="submit" value="Удалить"></p>
-</form>
+<div class="jumbotron">
+    <h1 class="display-4">Форма отмены резерва</h1>
+    <p class="lead">Для отмены резерва, выбирите гостя, который отменил резерв</p>
+    <hr class="my-4">
 
 
 
+    <form method="POST" th:action="@{/restaurant/deleteReserve}" th:object="${reserve}">
 
+
+        <div class="form-group">
+            <label for="reserve">Выбор гостя</label>
+            <select name="reserve" class="form-control" id="reserve">
+                <option selected>Гость...</option>
+                <option th:each="item : ${reserve}"
+                        th:value="${item.id}"
+                        th:utext="${item.user.name} +' '+${item.user.lastName} +' стол №' + ${item.tables.tableNum}+ ' резерв на '+ ${item.reserveStart}">
+                </option>
+            </select>
+        </div>
+
+        <p><input type="submit" value="Снять бронь"></p>
+    </form>
+
+
+</div>
+
+<p><a href="/">На главную</a></p>
 </body>
 </html>

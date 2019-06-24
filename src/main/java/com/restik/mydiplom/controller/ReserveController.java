@@ -9,6 +9,7 @@ import com.restik.mydiplom.repositories.TableRepository;
 import com.restik.mydiplom.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.security.Principal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+
 
 @Controller
 public class ReserveController {
@@ -57,6 +60,8 @@ public class ReserveController {
         System.out.println("visitorsVolume " + visitorsVolume);
         System.out.println("reserveStart " + reserveStart);
 
+        LocalDateTime timeNow = LocalDateTime.now();
+        LocalDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME);
         LocalDateTime localDateTime = LocalDateTime.parse(reserveStart, DateTimeFormatter.ISO_DATE_TIME);
         System.out.println("ISO Date Time is "+localDateTime);
 
@@ -74,7 +79,7 @@ public class ReserveController {
 
         try {
             Tables tables = tableRepository.findFreeTable(restaurantId, visitorsVolume, dateReserveDeltaMinus, dateReserveDeltaPlus).get();
-            if (tables != null) {
+            if (tables != null & timeNow.isBefore(localDateTime)) {
 
                 System.out.println("\n РЕзерв не нул \n");
 

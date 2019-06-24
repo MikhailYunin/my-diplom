@@ -7,6 +7,7 @@ import com.restik.mydiplom.repositories.RestaurantRepository;
 import com.restik.mydiplom.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,7 +36,7 @@ public class DeleteReserveController {
             System.out.println("\n test" );
             return "admin/delete_reserve";
         }
-
+        @Transactional
         @RequestMapping(value = "/restaurant/deleteReserve", method = RequestMethod.POST)
         public String deleteReserve(@ModelAttribute Reserve reserve, Model model) {
             String reserveID= reserve.getUser().getName();

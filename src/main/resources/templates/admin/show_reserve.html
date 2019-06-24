@@ -28,7 +28,7 @@
 
 <div class="jumbotron">
     <h1 class="display-4">Просмотр резерва столов</h1>
-    <p class="lead">Для отобрадения списка резервов, выбирите ресторан из списка Ваших ресторанов</p>
+    <p class="lead">Для отображения списка резервов, выбирите ресторан из списка Ваших ресторанов</p>
     <hr class="my-4">
 
 
@@ -78,44 +78,14 @@
         </tbody >
     </table>
 
+    <hr class="my-4">
+
+    <form>
+        <input type="button" value="Отмена резерва" onClick='location.href="/restaurant/deleteReserve"'>
+    </form>
+
+
 </div>
-
-
-
-
-<!--//-->
-<!--<form method="POST" th:action="@{/restaurant/showReserve}" th:object="${reserve}">-->
-<!--    <label>Выбор ресторана для статискики</label>-->
-<!--    <select name="restaurant">-->
-<!--        <option th:each="restaurant : ${restaurant}"-->
-<!--                th:value="${restaurant.restaurantId}"-->
-<!--                th:utext="${restaurant.restaurantName}">-->
-<!--        </option>-->
-<!--    </select>-->
-
-<!--    <p><input type="submit" value="Получить"></p>-->
-<!--</form>-->
-
-<!--<table th:if="${reserve}" border="2">-->
-<!--    <tr>-->
-<!--        <th>ID</th>-->
-<!--        <th>Время резерва</th>-->
-<!--        <th>Номер столика</th>-->
-<!--        <th>Имя пользователя</th>-->
-<!--    </tr>-->
-
-<!--    <th:block th:each="item : ${reserve}">-->
-<!--        <tr>-->
-<!--            <td th:text="${item.id}"></td>-->
-<!--            <td th:text="${item.reserveStart}"></td>-->
-<!--            <td th:text="${item.tables.tableNum}"></td>-->
-<!--            <td th:text="${item.user.name}"></td>-->
-<!--        </tr>-->
-<!--    </th:block>-->
-
-<!--    <p><a href="/">На главную</a></p>-->
-<!--    //-->
-
 
     <p><a href="/">На главную</a></p>
 </body>
