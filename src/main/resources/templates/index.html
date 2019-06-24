@@ -2,28 +2,77 @@
 <html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
+
+
     <title>Резерв столов. Главная</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <!-- Fonts -->
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Josefin+Slab:100,300,400,600,700,100italic,300italic,400italic,600italic,700italic" rel="stylesheet" type="text/css">
+
 </head>
 <body>
-<p>Добро пожаловать: <span sec:authentication="name"></span></p>
-<p>Вы вошли как: <span sec:authentication="principal.authorities"></span></p>
-<nav>
-    <ul>
 
-        <!--<li><a href="/user/login">Вход пользователя</a></li>-->
-        <!--<li><a href="/user/add">Регистрация пользователя</a></li>-->
-        <!--<li><a href="/restaurant/login">Вход администратора ресторана</a></li>-->
-        <li><a href="/logout">Выход</a></li>
+
+
+<div class="jumbotron">
+    <h1 class="display-3">Добро пожаловать:<span sec:authentication="name"></h1>
+    <p class="lead">Вы вошли как: <span sec:authentication="principal.authorities"></p>
+    <hr class="my-4">
+    <p>Выберете жалаемое действие</p>
+    <p class="lead">
+        <a class="btn btn-primary btn-lg" href="/logout" role="button">Выход</a>
+    </p>
+
+    <div class="list-group">
+
 
 
         <li  sec:authorize="hasAuthority('ADMIN')"><a href="/restaurant/add">Регистрация ресторана</a></li>
+
         <li  sec:authorize="hasAuthority('ADMIN')"><a href="/restaurant/showReserve">Просмотр забронированных столов</a></li>
+
         <li  sec:authorize="hasAuthority('ADMIN')"><a href="/restaurant/deleteReserve">Удаление брони</a></li>
 
-
         <li  sec:authorize="hasAuthority('USER')"><a href="/reserve/add">Резервация стола</a></li>
-    </ul>
-</nav>
+
+
+
+<!--        <li  sec:authorize="hasAuthority('ADMIN')"><button type="button" href="/restaurant/add"  class="btn btn-secondary btn-lg">Регистрация ресторана</button>-->
+<!--        <li  sec:authorize="hasAuthority('ADMIN')"><button type="button" href="/restaurant/showReserve"  class="btn btn-secondary btn-lg">Просмотр забронированных столов</button>-->
+<!--        <li  sec:authorize="hasAuthority('ADMIN')"><button type="button" href="/restaurant/deleteReserve"  class="btn btn-secondary btn-lg">Удаление брони</button>-->
+<!--        <li  sec:authorize="hasAuthority('ADMIN')"><button type="button" href="/restaurant/deleteReserve"  class="btn btn-secondary btn-lg">Резервация стола</button>-->
+
+<!--        -->
+
+<!--        <li  sec:authorize="hasAuthority('ADMIN')"><button type="button" href="/restaurant/add" class="list-group-item">Регистрация ресторана</button>-->
+<!--        <li  sec:authorize="hasAuthority('ADMIN')"><button type="button" href="/restaurant/showReserve" class="list-group-item">Просмотр забронированных столов</button>-->
+<!--        <li  sec:authorize="hasAuthority('ADMIN')"><button type="button" href="/restaurant/deleteReserve" class="list-group-item">Удаление брони</button>-->
+<!--        <li  sec:authorize="hasAuthority('USER')"><button type="button" href="/restaurant/deleteReserve" class="list-group-item">Резервация стола</button>-->
+
+
+    </div>
+
+</div>
+
+
+
+<!--<p>Добро пожаловать: <span sec:authentication="name"></span></p>-->
+<!--<p>Вы вошли как: <span sec:authentication="principal.authorities"></span></p>-->
+
+<!--        <li><a href="/logout">Выход</a></li>-->
+<!--        <li  sec:authorize="hasAuthority('ADMIN')"><a href="/restaurant/add">Регистрация ресторана</a></li>-->
+<!--        <li  sec:authorize="hasAuthority('ADMIN')"><a href="/restaurant/showReserve">Просмотр забронированных столов</a></li>-->
+<!--        <li  sec:authorize="hasAuthority('ADMIN')"><a href="/restaurant/deleteReserve">Удаление брони</a></li>-->
+
+<!--        <li  sec:authorize="hasAuthority('USER')"><a href="/reserve/add">Резервация стола</a></li>-->
+
 
 </body>
 </html>

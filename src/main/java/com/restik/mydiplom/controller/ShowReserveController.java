@@ -33,12 +33,14 @@ public class ShowReserveController {
     }
 
     @RequestMapping(value = "/restaurant/showReserve", method = RequestMethod.POST)
-    public String showReserve(Model model, @RequestParam(name = "restaurant") int restaurantId) {
+    public String showReserve(Model model, Principal principal, @RequestParam(name = "restaurant") int restaurantId) {
         System.out.println("\n Перед запросом ресторана \n");
         model.addAttribute("reserve", reserveRepository.findByRestaurantId(restaurantId));
         System.out.println(reserveRepository.findByRestaurantId(restaurantId));
         System.out.println("\n После запроса ресторана \n");
-        model.addAttribute("restaurant", restaurantRepository.findAll());
+        User adminOfRest = userRepository.findByEmail(principal.getName());
+        System.out.println("\n Имя администратора ресторана " +adminOfRest.getName()+"\n");
+        model.addAttribute("restaurant", restaurantRepository.findRestaurantByAdminId(adminOfRest.getId()));
         return "admin/show_reserve";
     }
 }

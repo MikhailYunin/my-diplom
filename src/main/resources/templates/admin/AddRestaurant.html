@@ -3,30 +3,116 @@
 <head>
     <meta charset="UTF-8">
     <title>Регистрация ресторана</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+
+    <!-- Fonts -->
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800"
+          rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Josefin+Slab:100,300,400,600,700,100italic,300italic,400italic,600italic,700italic"
+          rel="stylesheet" type="text/css">
+
 </head>
 <body>
 
-<h3>Форма добавления ресторана</h3>
 
-<p th:if="${addInfo}">Ресторан
-    <span  th:text="${addInfo}" style="color:red"></span>
-    добавлен
-</p>
+<div class="jumbotron">
+    <h2 class="display-4">Форма добавления ресторана!</h2>
+    <p class="lead" th:if="${addInfo}">Ресторан <span th:text="${addInfo}" style="color:red"></span> добавлен.</p>
+    <hr class="my-4">
+    <p>На данной странице необходимо указать данные о ресторане, количесвто столов и их вместительность</p>
 
-<form method="post" th:action="@{/restaurant/add}" th:object="${restaurant}">
-    <label>Название ресторана: <input th:field="*{restaurantName}" type="text"></label></br>
-    <hr>
-    <label>Адрес: <input th:field="*{adress}" type="text"></label>
-    <label>Номер телефона: <input th:field="*{phoneNumber}" type="text"></label>
-    <label>Количество столов: <input id="tables_count" th:field="*{tablesQty}" type="text"></label>
+    <form method="post" th:action="@{/restaurant/add}" th:object="${restaurant}">
 
-    <p><input type="button" id="add_table" value="Добавить описание столов"></p>
-    <div id="tables"></div>
-    <p><input type="submit" value="Добавить ресторан"></p>
-</form>
+        <div class="input-group ">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="sizing-addon1">Название ресторана</span>
+            </div>
+            <input th:field="*{restaurantName}" type="text" class="form-control" placeholder="Ресторан"
+                   aria-describedby="sizing-addon1">
+        </div>
+
+        <div>
+
+        </div>
+
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Адрес</span>
+            </div>
+            <input th:field="*{adress}" type="text" class="form-control" placeholder="улица..."
+                   aria-describedby="sizing-addon1">
+        </div>
+
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Номер телефона:</span>
+            </div>
+            <input type="text" th:field="*{phoneNumber}" class="form-control" placeholder="8(812)..."
+                   aria-describedby="sizing-addon1">
+        </div>
+
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="sizing-addon4">Количество столов:</span>
+            </div>
+            <input type="text" id="tables_count" th:field="*{tablesQty}" class="form-control" placeholder="10"
+                   aria-describedby="sizing-addon1">
+        </div>
 
 
-<p><a href="/">На главную</a></p>
-<script src="/js/tables.js"></script>
+                <p><input type="button" id="add_table" value="Добавить описание столов"></p>
+                <div id="tables"></div>
+                <p><input type="submit" value="Добавить ресторан"></p>
+
+    </form>
+
+    <!--    <form method="post" th:action="@{/restaurant/add}" th:object="${restaurant}">-->
+
+    <!--        <label>Название ресторана: <input th:field="*{restaurantName}" type="text"></label></br>-->
+    <!--        <hr>-->
+    <!--        <label>Адрес: <input th:field="*{adress}" type="text"></label>-->
+    <!--        <label>Номер телефона: <input th:field="*{phoneNumber}" type="text"></label>-->
+    <!--        <label>Количество столов: <input id="tables_count" th:field="*{tablesQty}" type="text"></label>-->
+
+    <!--        <p><input type="button" id="add_table" value="Добавить описание столов"></p>-->
+    <!--        <div id="tables"></div>-->
+    <!--        <p><input type="submit" value="Добавить ресторан"></p>-->
+    <!--    </form>-->
+
+
+    <!--<h3>Форма добавления ресторана</h3>-->
+
+    <!--<p th:if="${addInfo}">Ресторан-->
+    <!--    <span  th:text="${addInfo}" style="color:red"></span>-->
+    <!--    добавлен-->
+    <!--</p>-->
+
+    <!--<form method="post" th:action="@{/restaurant/add}" th:object="${restaurant}">-->
+    <!--    <label>Название ресторана: <input th:field="*{restaurantName}" type="text"></label></br>-->
+    <!--    <hr>-->
+    <!--    <label>Адрес: <input th:field="*{adress}" type="text"></label>-->
+    <!--    <label>Номер телефона: <input th:field="*{phoneNumber}" type="text"></label>-->
+    <!--    <label>Количество столов: <input id="tables_count" th:field="*{tablesQty}" type="text"></label>-->
+
+    <!--    <p><input type="button" id="add_table" value="Добавить описание столов"></p>-->
+    <!--    <div id="tables"></div>-->
+    <!--    <p><input type="submit" value="Добавить ресторан"></p>-->
+    <!--</form>-->
+
+
+    <p><a href="/">На главную</a></p>
+    <script src="/js/tables.js"></script>
 </body>
 </html>
