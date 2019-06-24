@@ -22,17 +22,13 @@
 
 
 <div class="jumbotron">
-    <h1 class="display-3">Добро пожаловать:<span sec:authentication="name"></h1>
-    <p class="lead">Вы вошли как: <span sec:authentication="principal.authorities"></p>
+    <h1 class="display-3">Добро пожаловать на главную страницу сервиса по резервированию столов</h1>
+    <p class="lead">Ваш логин: <span sec:authentication="name"></span>, вы вошли с правами доступа <span sec:authentication="principal.authorities"></span> </p>
     <hr class="my-4">
     <p>Выберете жалаемое действие</p>
-    <p class="lead">
-        <a class="btn btn-primary btn-lg" href="/logout" role="button">Выход</a>
-    </p>
+
 
     <div class="list-group">
-
-
 
         <li  sec:authorize="hasAuthority('ADMIN')"><a href="/restaurant/add">Регистрация ресторана</a></li>
 
@@ -41,7 +37,13 @@
         <li  sec:authorize="hasAuthority('ADMIN')"><a href="/restaurant/deleteReserve">Удаление брони</a></li>
 
         <li  sec:authorize="hasAuthority('USER')"><a href="/reserve/add">Резервация стола</a></li>
+    </div>
 
+</div>
+
+<p class="lead">
+    <a class="btn btn-primary btn-lg" href="/logout" role="button">Выход</a>
+</p>
 
 
 <!--        <li  sec:authorize="hasAuthority('ADMIN')"><button type="button" href="/restaurant/add"  class="btn btn-secondary btn-lg">Регистрация ресторана</button>-->
@@ -57,9 +59,6 @@
 <!--        <li  sec:authorize="hasAuthority('USER')"><button type="button" href="/restaurant/deleteReserve" class="list-group-item">Резервация стола</button>-->
 
 
-    </div>
-
-</div>
 
 
 
